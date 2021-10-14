@@ -15,7 +15,10 @@ public class Stock {
     // Return: average return after 1 year (250 days)
     protected double Return;
     // Risk: standard deviation of Return;
-    protected double Risk;
+    protected double ReturnSTD;
+    // drawdown from all-time high average
+    protected double drawdownAverage;
+
 
     private static final int cycle = 250;
 
@@ -40,8 +43,8 @@ public class Stock {
         return Return;
     }
 
-    public double getRisk() {
-        return Risk;
+    public double getReturnSTD() {
+        return ReturnSTD;
     }
 
     public void getPriceData(){
@@ -68,28 +71,55 @@ public class Stock {
 
     }
 
-    public void calculateReturn(){
-        double growRate = 0f;
+    public double calculateReturn(){
+        double growRate = 0d;
         for (int i = 0; i<getDataLength()-cycle;i++){
             growRate += (double) (Price.get(i+cycle)-Price.get(i))/Price.get(i);
         }
         growRate/= getDataLength()-cycle;
         Return = growRate;
+        return growRate;
     }
 
-    public void calculateRisk(){
-        double risk = 0f;
+    //calculate annual return standard deviation
+    public double calculateARSTD(){
+        double risk = 0d;
         for (int i = 0; i<getDataLength()-cycle;i++){
             double growRate = (double) (Price.get(i+cycle)-Price.get(i))/Price.get(i);
             risk+= (growRate - Return)*(growRate - Return);
         }
         risk/= getDataLength()-cycle - 1;
         risk = Math.sqrt(risk);
-        Risk = risk;
+        ReturnSTD = risk;
+        return risk;
+    }
+
+    public double getDrawdownAverage() {
+        return drawdownAverage;
     }
 
     public int getDataLength(){
         return Price.size();
+    }
+
+    public double calculateDrawdownAverage(){
+        double allTimeHigh = 0;
+        double drawdown = 0;
+        for (int i = 0; i<getDataLength();i++){
+            if(Price.get(i)>=allTimeHigh){
+                allTimeHigh= Price.get(i);
+            } else {
+                drawdown+= (allTimeHigh-Price.get(i))/allTimeHigh;
+            }
+        }
+        this.drawdownAverage = drawdown/Price.size();
+        return  drawdown/Price.size();
+    }
+    public void calculateAll(){
+        getPriceData();
+        calculateReturn();
+        calculateARSTD();
+        calculateDrawdownAverage();
     }
 
 }

@@ -14,6 +14,7 @@ public class PoolOfStocks extends Stock{
         super(name);
         listOfStock = new ArrayList<>();
         numberOfShares = new ArrayList<>();
+        Price = new ArrayList<>();
     }
 
     public void addStock(Stock stock){
@@ -23,7 +24,7 @@ public class PoolOfStocks extends Stock{
     }
 
     public boolean setNumberOfShares(List<Integer> numberOfShares) {
-        if(numberOfShares.size() == Price.size()){
+        if(numberOfShares.size() == this.numberOfShares.size()){
             this.numberOfShares = numberOfShares;
             return true;
         }
@@ -50,12 +51,14 @@ public class PoolOfStocks extends Stock{
         Price = new ArrayList<>();
         for(int i = 0; i< dataLength; i++){
             Float priceAtI =0f;
-            for (int j = 0; i< numberOfStocks; i++){
+            for (int j = 0; j< numberOfStocks; j++){
                 priceAtI+= numberOfShares.get(j)*listOfStock.get(j).getPriceAt(i);
             }
             Price.add(priceAtI);
         }
     }
+
+
 
     public int getNumberOfStocks() {
         return numberOfStocks;
