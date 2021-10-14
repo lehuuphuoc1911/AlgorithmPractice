@@ -2,6 +2,7 @@ package com.portfolio;
 
 import com.portfolio.stock.PoolOfStocks;
 import com.portfolio.stock.Stock;
+import com.portfolio.strategy.MaxReturnOverDrawDownStrategy;
 import com.portfolio.strategy.MaxReturnOverSTDStrategy;
 import com.portfolio.strategy.MinDrawdownStrategy;
 import com.portfolio.strategy.Strategy;
@@ -35,7 +36,7 @@ public class App {
         System.out.println(fpt.getName() +"-->  Return :"+fpt.getReturn()*100+" Drawdown Average :"+fpt.getDrawdownAverage()*100);
         System.out.println(msn.getName() +"-->  Return :"+msn.getReturn()*100+" Drawdown Average :"+msn.getDrawdownAverage()*100);
         System.out.println(vic.getName() +"-->  Return :"+vic.getReturn()*100+" Drawdown Average :"+vic.getDrawdownAverage()*100);
-
+        long t1 = System.currentTimeMillis();
         Strategy minDrawdownStrategyABC = new MinDrawdownStrategy(myPortfolio);
         minDrawdownStrategyABC.evaluate();
         System.out.println("Return = "+minDrawdownStrategyABC.getReturn()*100);
@@ -47,5 +48,13 @@ public class App {
         System.out.println("Return = "+maxReturnOverSTDABC.getReturn()*100);
         System.out.println("MaxReturnOverSTD = "+maxReturnOverSTDABC.getOptimizedMetric());
         System.out.println(maxReturnOverSTDABC.getOptimizedCombination());
+        System.out.println("--------------------------------------------");
+        Strategy maxReturnOverDrawdownABC = new MaxReturnOverDrawDownStrategy(myPortfolio);
+        maxReturnOverDrawdownABC.evaluate();
+        System.out.println("Return = "+maxReturnOverDrawdownABC.getReturn()*100);
+        System.out.println("maxReturnOverDrawdown = "+maxReturnOverDrawdownABC.getOptimizedMetric());
+        System.out.println(maxReturnOverDrawdownABC.getOptimizedCombination());
+        long t2 = System.currentTimeMillis();
+        System.out.println(t2-t1);
     }
 }

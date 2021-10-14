@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class Strategy {
     PoolOfStocks listOfStock;
-    int MAX_SHARES = 10;
+    int MAX_SHARES = 19;
     Double optimizedMetric;
     List<Integer> optimizedCombination;
     double currentBestMetricInitialValue = Double.MAX_VALUE;
