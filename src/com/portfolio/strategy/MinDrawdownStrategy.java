@@ -5,9 +5,9 @@ import com.portfolio.stock.PoolOfStocks;
 public class MinDrawdownStrategy extends Strategy{
     public MinDrawdownStrategy(PoolOfStocks poolOfStocks) {
         super(poolOfStocks);
+        currentBestMetricInitialValue = Double.MAX_VALUE;
+        optimizedMetric = currentBestMetricInitialValue;
     }
-
-
 
     @Override
     public  double getMetric(){

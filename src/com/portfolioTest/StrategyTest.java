@@ -2,6 +2,7 @@ package com.portfolioTest;
 import com.portfolio.stock.PoolOfStocks;
 import com.portfolio.stock.Stock;
 import com.portfolio.strategy.MinDrawdownStrategy;
+import com.portfolio.strategy.Strategy;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,23 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StrategyTest {
     @Test
    void isLinearIndependent(){
-        Stock hpg = new Stock("HPG");
-        Stock fpt = new Stock("FPT");
-        Stock msn = new Stock("MSN");
-        Stock vic = new Stock("VIC");
-        PoolOfStocks myPortfolio = new PoolOfStocks("ABC");
-        myPortfolio.addStock(hpg);
-        myPortfolio.addStock(fpt);
-        myPortfolio.addStock(msn);
-        myPortfolio.addStock(vic);
-        MinDrawdownStrategy minDrawdownStrategy = new MinDrawdownStrategy(myPortfolio);
+
         List<Integer> list = new ArrayList<>();
         list.add(4);
         list.add(2);
         list.add(2);
         list.add(0);
-        assertEquals(list,minDrawdownStrategy.getNumberOfSharesCombination(88));
-        assertEquals(false,minDrawdownStrategy.isLinearIndependent(list));
+        assertEquals(list, Strategy.getCombination(88, 4, 5));
+        assertEquals(false,Strategy.isLinearIndependent(list));
 
     }
 

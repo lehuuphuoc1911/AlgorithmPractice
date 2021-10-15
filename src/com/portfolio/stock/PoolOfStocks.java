@@ -1,15 +1,17 @@
 package com.portfolio.stock;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class PoolOfStocks extends Stock{
+    // pool of stock contain a several of stock
     private List<Stock> listOfStock;
+    // number of share of each stock for a pool unit
     private List<Integer> numberOfShares;
     private int numberOfStocks = 0;
 
+    // constructor
     public PoolOfStocks(String name) {
         super(name);
         listOfStock = new ArrayList<>();
@@ -17,12 +19,14 @@ public class PoolOfStocks extends Stock{
         Price = new ArrayList<>();
     }
 
+    // add stock to the pool
     public void addStock(Stock stock){
         listOfStock.add(stock);
         numberOfShares.add(1);
         numberOfStocks ++;
     }
 
+    // getter
     public boolean setNumberOfShares(List<Integer> numberOfShares) {
         if(numberOfShares.size() == this.numberOfShares.size()){
             this.numberOfShares = numberOfShares;
@@ -31,6 +35,7 @@ public class PoolOfStocks extends Stock{
         return false;
     }
 
+    //read price data from csv file
     @Override
     public void getPriceData() {
         for (Stock stock:this.listOfStock
@@ -39,6 +44,7 @@ public class PoolOfStocks extends Stock{
         }
     }
 
+    //calculate the value of a pool unit
     public void calculatePrice(){
         int dataLength = Integer.MAX_VALUE;
         for (Stock stock:listOfStock
@@ -58,8 +64,7 @@ public class PoolOfStocks extends Stock{
         }
     }
 
-
-
+    // getter
     public int getNumberOfStocks() {
         return numberOfStocks;
     }

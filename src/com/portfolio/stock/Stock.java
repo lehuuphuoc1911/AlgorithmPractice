@@ -18,35 +18,35 @@ public class Stock {
     protected double ReturnSTD;
     // drawdown from all-time high average
     protected double drawdownAverage;
-
-
+    // one year has roughly 250 trading days
     private static final int cycle = 250;
 
-
+    // constructor
     public Stock(String name) {
         Name = name;
     }
-
-    public List<Float> getPrice() {
-        return Price;
-    }
-
+    // get price at a specific day
     public Float getPriceAt(int day){
         return Price.get(day);
     }
-
+    // getter
     public String getName() {
         return Name;
     }
-
     public double getReturn() {
         return Return;
     }
-
     public double getReturnSTD() {
         return ReturnSTD;
     }
+    public double getDrawdownAverage() {
+        return drawdownAverage;
+    }
+    public int getDataLength(){
+        return Price.size();
+    }
 
+    // read price data from csv file
     public void getPriceData(){
         BufferedReader csvReader;
         Price = new ArrayList<>();
@@ -54,7 +54,6 @@ public class Stock {
             csvReader = new BufferedReader(new FileReader("src\\com\\portfolio\\resource\\stockPrice\\"+this.getName()+".csv"));
             try {
                 String row;
-                //(row = csvReader.readLine()) != null
                 int i = 0;
                 while ((row = csvReader.readLine()) != null) {
                     String[] data = row.split(",");
@@ -67,10 +66,9 @@ public class Stock {
             System.out.println("file not found");
         }
 
-
-
     }
 
+    // if you bought the stock in a random date, how many % of return you statically get after exact one year on average
     public double calculateReturn(){
         double growRate = 0d;
         for (int i = 0; i<getDataLength()-cycle;i++){
@@ -94,14 +92,8 @@ public class Stock {
         return risk;
     }
 
-    public double getDrawdownAverage() {
-        return drawdownAverage;
-    }
 
-    public int getDataLength(){
-        return Price.size();
-    }
-
+    // if you bought the stock at all-time high, how many % would you be losing on average
     public double calculateDrawdownAverage(){
         double allTimeHigh = 0;
         double drawdown = 0;
