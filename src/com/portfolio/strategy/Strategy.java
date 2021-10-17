@@ -54,13 +54,9 @@ public abstract class Strategy {
             }
         }
         if (tempCombination!=null){
-            optimizedCombination=tempCombination;
-            optimizedMetric=currentBestMetric;
-            listOfStock.setNumberOfShares(optimizedCombination);
-            listOfStock.calculatePrice();
+            settle(tempCombination,currentBestMetric);
             return currentBestMetric;
         }
-
         return -1;
     }
 
@@ -108,7 +104,7 @@ public abstract class Strategy {
         return optimizedCombination;
     }
 
-    public static long powLong(int a, int positiveOnly){
+    private static long powLong(int a, int positiveOnly){
         if(positiveOnly==0){
             return 1;
         } else {
@@ -119,9 +115,6 @@ public abstract class Strategy {
         return listOfStock.calculateReturn();
     }
 
-    public int getMAX_SHARES() {
-        return MAX_SHARES;
-    }
 
     //
     private static int getMax(List<Integer> list){
@@ -133,5 +126,12 @@ public abstract class Strategy {
             }
         }
         return max;
+    }
+
+    private void settle(List<Integer> tempCombination, double currentBestMetric){
+        optimizedCombination=tempCombination;
+        optimizedMetric=currentBestMetric;
+        listOfStock.setNumberOfShares(optimizedCombination);
+        listOfStock.calculatePrice();
     }
 }

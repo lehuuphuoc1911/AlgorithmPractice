@@ -7,8 +7,6 @@ import com.portfolio.strategy.MaxReturnOverSTDStrategy;
 import com.portfolio.strategy.MinDrawdownStrategy;
 import com.portfolio.strategy.Strategy;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class App {
     public static void main(String[] args) {
